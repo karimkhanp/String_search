@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 int *compute_prefix_function(char *pattern, int psize)
 {
 	int k = -1;
@@ -31,10 +32,12 @@ int kmp(char *target, int tsize, char *pattern, int psize)
 	if (!pi)
 		return -1;
 	for (i = 0; i < tsize; i++) {
+
 		while (k > -1 && pattern[k+1] != target[i])
 			k = pi[k];
 		if (target[i] == pattern[k+1])
 			k++;
+		//printf("Ini k and psize is : %d  %d\n",k,psize);
 		if (k == psize - 1) {
 			free(pi);
 		//	printf("I- k : %d",i-k);
@@ -56,9 +59,12 @@ int main(int argc, const char *argv[])
 	printf("Enter the string to be matched: \n");
 	fgets(pattern,20,stdin);
 	l=strlen(pattern);
-	i = kmp(target, strlen(target), pattern, strlen(pattern));
-	if (i >= 0)
-		printf("matched @: %s\n", ch + i);
+	i = kmp(target, strlen(target)-1, pattern, strlen(pattern)-1);
+	//printf("I is : %d\n",i);
+	if (i == -1)
+		puts("False");
+	else
+		puts("True");
 	getch();
 	return 0;
 }
